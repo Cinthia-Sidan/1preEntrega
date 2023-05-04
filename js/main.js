@@ -1,111 +1,152 @@
-class Pizzas {
-    constructor(tipo, cantidad, agregados) {
-
-        this.tipo = tipo;
-        this.cantidad = cantidad;
-        this.agregados = agregados.toUpperCase();
-    }
-
-}
-
-class ListaAgregados {
-    constructor(id, nombreAg, disponible){
+class Pedido {
+    constructor(id, tipoPizza, cantidad, detalle){
         this.id = id;
-        this.nombreAg = nombreAg;
-        this.disponible = disponible;
+        this.tipoPizza = tipoPizza;
+        this.cantidad = cantidad;
+        this.detalle = detalle;
     }
 }
 
-class Cliente {
-    constructor(nombre, direccion, metodoPago) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.metodoPago = parseInt(metodoPago);
-    }
-
-    toString = function () {
-        return this.nombre;
+class Agregado {
+    constructor(id, name) {
+        this.id = id;
+        this.nombre = name;
     }
 }
 
-let cantidadPizzas = prompt("Ingrese cantidad de pizzas deseadas") //variable que contiene 
-let pizzaCompleta; //variable que se utiliza para mostrar el detalle de cada pizza
-let pizzasCompletas = [];
-let agregadosPermitido = [];
+const agregados = [
+    new Agregado(1, "Aceitunas"),
+    new Agregado(2, "Jamón"),
+    new Agregado(3, "Tomate"),
+    new Agregado(4, "Albaca"),
+    new Agregado(5, "Jamón Crudo"),
+    new Agregado(6, "Morrón"),
+    new Agregado(7, "Rúcula"),
+    new Agregado(8, "Huevo"),
+    new Agregado(9, "Champignones"),
+    new Agregado(10, "Ananá"),
+    new Agregado(1, "Azucar morena"),
+];
 
-//Agrego los items permitidos para personalizar la pizza.
-agregadosPermitido.push(new ListaAgregados("1","TOMATE","true"));
-agregadosPermitido.push(new ListaAgregados("2","HUEVO","true"));
-agregadosPermitido.push(new ListaAgregados("3","JAMON","true"));
-agregadosPermitido.push(new ListaAgregados("4","ACEITUNA","true"));
-agregadosPermitido.push(new ListaAgregados("5","MORRON","true"));
-agregadosPermitido.push(new ListaAgregados("6","ANANA","true"));
-agregadosPermitido.push(new ListaAgregados("1","JAMON CRUDO","true"));
-agregadosPermitido.push(new ListaAgregados("1","RUCULA","true"));
+let agregadoList = document.getElementById("agregado1");
+let agregadoList2 = document.getElementById("agregado2");
+let agregadoList3 = document.getElementById("agregado3");
+let agregadoList4 = document.getElementById("agregado4");
+let agregadoList5 = document.getElementById("agregado5");
 
-function ordenarPizza() {
+agregados.forEach((unAgregado) => {
+    let item = document.createElement("option");
+    item.value = unAgregado.id.toString();
+    item.innerText = unAgregado.nombre;
+    agregadoList.append(item);
+})
 
-    let tipoPizza = prompt("Ingresa 1 si querés la muzza basica o 2 para armarla a tu gusto");
-    let arrayAgregado = [];
-    let cantidadAgregados;
+agregados.forEach((unAgregado) => {
+    let item = document.createElement("option");
+    item.value = unAgregado.id.toString();
+    item.innerText = unAgregado.nombre;
+    agregadoList2.append(item);
+})
+
+agregados.forEach((unAgregado) => {
+    let item = document.createElement("option");
+    item.value = unAgregado.id.toString();
+    item.innerText = unAgregado.nombre;
+    agregadoList3.append(item);
+})
+
+agregados.forEach((unAgregado) => {
+    let item = document.createElement("option");
+    item.value = unAgregado.id.toString();
+    item.innerText = unAgregado.nombre;
+    agregadoList4.append(item);
+})
+
+agregados.forEach((unAgregado) => {
+    let item = document.createElement("option");
+    item.value = unAgregado.id.toString();
+    item.innerText = unAgregado.nombre;
+    agregadoList5.append(item);
+})
+
+const formularioPizza = document.getElementById("pizzaPersonalizada");
+
+class Pizza {
+    constructor(id, agreg1, agreg2, agreg3, agreg4, agreg5, comentario) {
+        this.id = id;
+        this.agreg1 = agreg1;
+        this.agreg2 = agreg2;
+        this.agreg3 = agreg3;
+        this.agreg4 = agreg4;
+        this.agreg5 = agreg5;
+        this.comentario = comentario;
+    }
+}
+
+function agregarPizzaBasica(){
+    pizzaCompleta = "Seleccionaste básica! Tu pizza será hecha con una masa cacera y la mejor calidad de muzzarella";
+    let item = document.createElement("p");
+        item.innerText = pizzaCompleta;
+        pedido.append(item);
+}
+
+let pizzas = [];
+let pedidos = [];
+
+function validarFormulario(data) {
+    const agregado1 = document.getElementById("agregado1").value;
+    const agregado2 = document.getElementById("agregado2").value;
+    const agregado3 = document.getElementById("agregado3").value;
+    const agregado4 = document.getElementById("agregado4").value;
+    const agregado5 = document.getElementById("agregado5").value;
+    const comentarios = document.getElementById("comentario").value;
+
+    const arrayAgregados = [agregado1, agregado2, agregado3, agregado4, agregado5, comentarios];
+
+    console.log("--> Array", arrayAgregados);
+    const tipoPizza = "Personalizada";
+
+    const unAgregado1 = agregados.find((e) => e.id.toString() === agregado1);
+    const unAgregado2 = agregados.find((e) => e.id.toString() === agregado2);
+    const unAgregado3 = agregados.find((e) => e.id.toString() === agregado3);
+    const unAgregado4 = agregados.find((e) => e.id.toString() === agregado4);
+    const unAgregado5 = agregados.find((e) => e.id.toString() === agregado5);
+
+    const unaPizza = new Pizza(
+        pizzas.length + 1,
+        unAgregado1,
+        unAgregado2,
+        unAgregado3,
+        unAgregado4,
+        unAgregado5,
+        comentarios
+    );
+    console.log("--> Pizza añadida", unaPizza);
+
+    pizzas.push(unaPizza);
+
+    let pedido = document.getElementById("pedido");
+    pedido.innerHTML = "";
+    pizzas.forEach((p) => {
+        let item = document.createElement("p");
+        item.innerText = "Su pizza será personalizada con: "+ p.agreg1.nombre + ", "+ p.agreg2.nombre + ", "+ p.agreg3.nombre + ", "+ p.agreg4.nombre + " y "+ p.agreg5.nombre;
+        pedido.append(item);
+    })
+
+    let unPedido = new Pedido(
+        pedidos.length + 1,
+        tipoPizza,
+        1,
+        unaPizza
+    )
+    console.log("pedido", unPedido);
+
+    pedidos.push(unPedido);
+
     
-
-    if (tipoPizza == "") {
-        // compruebo que se ingresara un tipo de pizza para continuar
-        alert("No ingresaste que tipo de pizza");
-    } else if (tipoPizza == 1) {
-        pizzaCompleta = "Seleccionaste básica! Tu pizza será hecha con una masa cacera y la mejor calidad de muzzarella";
-        cantidadAgregados = 0;
-    } else if (tipoPizza == 2) {
-        alert("Seleccionaste personalizada");
-        //Se consulta la cantidad de agregados al usuario
-        cantidadAgregados = prompt("Ingresa la cantidad de agregados que deseas. El máximo permitido es 5");
-        while (cantidadAgregados > 5) {
-            cantidadAgregados = parseInt(prompt("No se permiten mas de 5 agregados. Cuantos desea?"))
-        }
-        for (let i = 1; i <= cantidadAgregados; i++) {
-            //Se pide al usuario que ingrese los agregados de a 1
-            let ingresarAgregado = prompt("Escribe el agregado número "+ i +" que te gustaría ponerle?");
-            //Se comprueba que el agregado que el usuario ingreso, se encuentre entre la lista de los permitidos antes de agregarlo
-            let comprueboAgregado = agregadosPermitido.some((ag) => ag.nombreAg.includes(ingresarAgregado.toUpperCase()));
-            if(comprueboAgregado){
-                arrayAgregado.push(ingresarAgregado);
-            }else{
-                alert("Lamentablemente el agregado que deseas no esta disponible. Por favor agrega otro");
-                i= i-1;
-            }
-        }
-
-        pizzaCompleta = "Tu pizza será personalizada con: " + arrayAgregado.join(",\n");
-
-    } else {
-        alert("Debes ingresar 1 para Básica o 2 para Personalizada");
-    }
-    pizzasCompletas.push(new Pizzas(tipoPizza,cantidadAgregados,arrayAgregado.join(", ")));
 }
 
-
-
-for(let i = 1; i <= cantidadPizzas; i++){
-    ordenarPizza();
-    alert(i +" - " + pizzaCompleta);
-}
-console.log("--> El pedido completo es el siguiente: ", pizzasCompletas);
-
-let nuevoCliente = new Cliente("", "", "");
-nuevoCliente.nombre = prompt("Nombre de la persona que recibirá el pedido");
-nuevoCliente.direccion = prompt("A que dirección debemos enviar el pedido?");
-nuevoCliente.metodoPago = prompt("Cómo desea pagar el pedido? Ingrese 1 para abonar en efectivo al momento de recibirlo o 2 para abonar con tarjeta");
-
-while (nuevoCliente.metodoPago > 2) {
-    nuevoCliente.metodoPago = prompt("Debe ingresar 1 o 2. Ingrese 1 para abonar en efectivo al momento de recibirlo o 2 para abonar con tarjeta");
-}
-if (nuevoCliente.metodoPago == 1) {
-    console.log("-->Revice los datos de entrega antes de continuar:\n Nombre de quién recibirá el pedido:", nuevoCliente.nombre);
-    console.log("-->Dirección:", nuevoCliente.direccion);
-    console.log("-->El metodo de pago seleccionado es Efectivo, por lo que el pedido será abonado al momento de la entrega. Gracias por su compra!");
-} else if (nuevoCliente.metodoPago == 2) {
-    console.log("-->Revice los datos de entrega antes de continuar:\n Nombre de quién recibirá el pedido:", nuevoCliente.nombre);
-    console.log("-->Dirección:", nuevoCliente.direccion);
-    console.log("-->El metodo de pago seleccionado es Tarjeta, por lo que serás redireccionado para que el pedido será abonado antes de la entrega. Gracias por su compra!");
-} 
+formularioPizza.addEventListener("submit", (event) => {
+    event.preventDefault();
+    validarFormulario(event.target);
+})
