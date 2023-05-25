@@ -62,8 +62,7 @@
                                     <div class="card cards col-md-2" style="width: 18rem;">
                                         <img src="./imagenes/muzzarella.png" class="card-img-top" alt="...">
                                         <div class="card-body">
-                                            <p class="card-text">Some quick example text to build on the card title and
-                                                make up the bulk of the card's content.</p>
+                                            <p class="card-text">Masa casera con una receta única, traída directamente de italia, con salsa cacera y la mejor calidad de mozzarella.</p>
                                             <a href="#" class="btn btn-primary-orange" onclick="agregarPizzaBasica()">Quiero esta!</a>
 
                                         </div>
@@ -71,8 +70,7 @@
                                     <div class="card cards col-md-2" style="width: 18rem;">
                                         <img src="./imagenes/personalizada.png" class="card-img-top" alt="...">
                                         <div class="card-body">
-                                            <p class="card-text">Some quick example text to build on the card title and
-                                                make up the bulk of the card's content.</p>
+                                            <p class="card-text">Somos de mente abierta y nuestras pizzas también. Personalizala como vos quieras!!</p>
                                             <a href="#personalizar" class="btn btn-primary-orange">Quiero esta!</a>
 
                                         </div>
@@ -118,10 +116,15 @@
                                             <input type="text" class="form-control" id="comentario"
                                                 aria-describedby="emailHelp">
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-primary">Enviar personalizada</button>
                                     </form>
+                                    
                                 </div>
-                                <div id="pedido"></div>
+                                <div>
+                                    <button type="submit" class="btn btn-outline-warning" onclick="mostrarPedido()">Ver detalle del pedido</button>
+                                </div>
+                                <div id="pedido">
+                                </div>
                             </div>
                         </section>
                     </main>
@@ -142,6 +145,8 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
                 crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
             <script src="./js/main.js"></script>
 
 </body>

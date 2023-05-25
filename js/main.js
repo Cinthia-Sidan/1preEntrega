@@ -1,5 +1,5 @@
 class Pedido {
-    constructor(id, tipoPizza, cantidad, detalle){
+    constructor(id, tipoPizza, cantidad, detalle) {
         this.id = id;
         this.tipoPizza = tipoPizza;
         this.cantidad = cantidad;
@@ -83,15 +83,43 @@ class Pizza {
     }
 }
 
-function agregarPizzaBasica(){
+var carritoGuardadoJSON = localStorage.getItem("carrito");
+var carritoGuardado = JSON.parse(carritoGuardadoJSON);
+let pizzas = [];
+let pedidos = carritoGuardado || [];
+let numeroPedido = 0;
+let numeroBasica = 0;
+
+function agregarPizzaBasica() {
     pizzaCompleta = "Seleccionaste básica! Tu pizza será hecha con una masa cacera y la mejor calidad de muzzarella";
     let item = document.createElement("p");
-        item.innerText = pizzaCompleta;
-        pedido.append(item);
+    item.innerText = pizzaCompleta;
+    pedido.append(item);
+    const tipoPizza = "Básica";
+
+    let unPedido = new Pedido(
+        pedidos.length + 1,
+        tipoPizza,
+        1,
+        "basica"
+    )
+
+    pedidos.push(unPedido);
+
+    const pedidoJson = JSON.stringify(pedidos);
+    localStorage.setItem("carrito", pedidoJson);
+
+    Swal.fire(
+        'Genial',
+        'Tu pizza fue agregada correctamente',
+        'success'
+    )
+
+
+
 }
 
-let pizzas = [];
-let pedidos = [];
+
 
 function validarFormulario(data) {
     const agregado1 = document.getElementById("agregado1").value;
@@ -103,7 +131,6 @@ function validarFormulario(data) {
 
     const arrayAgregados = [agregado1, agregado2, agregado3, agregado4, agregado5, comentarios];
 
-    console.log("--> Array", arrayAgregados);
     const tipoPizza = "Personalizada";
 
     const unAgregado1 = agregados.find((e) => e.id.toString() === agregado1);
@@ -121,7 +148,6 @@ function validarFormulario(data) {
         unAgregado5,
         comentarios
     );
-    console.log("--> Pizza añadida", unaPizza);
 
     pizzas.push(unaPizza);
 
@@ -129,7 +155,7 @@ function validarFormulario(data) {
     pedido.innerHTML = "";
     pizzas.forEach((p) => {
         let item = document.createElement("p");
-        item.innerText = "Su pizza será personalizada con: "+ p.agreg1.nombre + ", "+ p.agreg2.nombre + ", "+ p.agreg3.nombre + ", "+ p.agreg4.nombre + " y "+ p.agreg5.nombre;
+        item.innerText = "Su pizza será personalizada con: " + p.agreg1.nombre + ", " + p.agreg2.nombre + ", " + p.agreg3.nombre + ", " + p.agreg4.nombre + " y " + p.agreg5.nombre;
         pedido.append(item);
     })
 
@@ -137,16 +163,50 @@ function validarFormulario(data) {
         pedidos.length + 1,
         tipoPizza,
         1,
-        unaPizza
+        arrayAgregados
     )
-    console.log("pedido", unPedido);
+
 
     pedidos.push(unPedido);
 
-    
+    const pedidoJson = JSON.stringify(pedidos);
+    localStorage.setItem("carrito", pedidoJson);
+
+
+    Swal.fire(
+        'Genial',
+        'Tu pizza fue agregada correctamente',
+        'success'
+    )
+
+    pizzaPersonalizada.reset();
+
 }
+
+
 
 formularioPizza.addEventListener("submit", (event) => {
     event.preventDefault();
     validarFormulario(event.target);
 })
+
+
+function mostrarPedido() {
+    let key = "basica" + numeroBasica;
+    let basicaCompleto = JSON.parse(localStorage.getItem(toString(key)));
+
+    let item = document.createElement("p");
+    item.innerText = "Cantidad:" + p.basicaCompleto.id + ", " + p.basicaCompleto.tipoPizza;
+    pedido.append(item);
+
+
+    for (i = 1; i < numeroPedido; i++) {
+        let keypers = "personalizada" + numeroPedido;
+        const personalizadaCompleto = JSON.parse(localStorage.getItem(keypers));
+
+        let item = document.createElement("p");
+        item.innerText = "Cantidad:" + p.personalizadaCompleto.id + ", " + p.personalizadaCompleto.tipoPizza + ", Detalle: " + p.personalizadaCompleto.detalle;
+        pedido.append(item);
+    }
+
+}

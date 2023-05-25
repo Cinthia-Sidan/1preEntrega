@@ -109,3 +109,7 @@ if (nuevoCliente.metodoPago == 1) {
     console.log("-->Dirección:", nuevoCliente.direccion);
     console.log("-->El metodo de pago seleccionado es Tarjeta, por lo que serás redireccionado para que el pedido será abonado antes de la entrega. Gracias por su compra!");
 } 
+
+function mostrarPedido(){
+    
+}
