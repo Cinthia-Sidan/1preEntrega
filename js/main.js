@@ -90,6 +90,7 @@ let pedidos = carritoGuardado || [];
 let numeroPedido = 0;
 let numeroBasica = 0;
 
+
 function agregarPizzaBasica() {
     pizzaCompleta = "Seleccionaste básica! Tu pizza será hecha con una masa cacera y la mejor calidad de muzzarella";
     let item = document.createElement("p");
@@ -149,21 +150,21 @@ function validarFormulario(data) {
         comentarios
     );
 
+    console.log("unaPizza", unaPizza);
     pizzas.push(unaPizza);
 
     let pedido = document.getElementById("pedido");
     pedido.innerHTML = "";
     pizzas.forEach((p) => {
-        let item = document.createElement("p");
-        item.innerText = "Su pizza será personalizada con: " + p.agreg1.nombre + ", " + p.agreg2.nombre + ", " + p.agreg3.nombre + ", " + p.agreg4.nombre + " y " + p.agreg5.nombre;
-        pedido.append(item);
+        agregadosString = p.agreg1.nombre + ", " + p.agreg2.nombre + ", " + p.agreg3.nombre + ", " + p.agreg4.nombre + " y " + p.agreg5.nombre + ", " + comentarios;
     })
+
 
     let unPedido = new Pedido(
         pedidos.length + 1,
         tipoPizza,
         1,
-        arrayAgregados
+        agregadosString
     )
 
 
@@ -192,21 +193,31 @@ formularioPizza.addEventListener("submit", (event) => {
 
 
 function mostrarPedido() {
-    let key = "basica" + numeroBasica;
-    let basicaCompleto = JSON.parse(localStorage.getItem(toString(key)));
-
-    let item = document.createElement("p");
-    item.innerText = "Cantidad:" + p.basicaCompleto.id + ", " + p.basicaCompleto.tipoPizza;
-    pedido.append(item);
 
 
-    for (i = 1; i < numeroPedido; i++) {
-        let keypers = "personalizada" + numeroPedido;
-        const personalizadaCompleto = JSON.parse(localStorage.getItem(keypers));
+    let htmlTable = "<table>";
+    htmlTable += '<tr><th class="carritoId">ID</th><th class="carritoTipo">Tipo de Pizza</th><th class="carritoCantidad">Cantidad</th><th class="carritoDetalle">Detalle</th></tr>';
 
-        let item = document.createElement("p");
-        item.innerText = "Cantidad:" + p.personalizadaCompleto.id + ", " + p.personalizadaCompleto.tipoPizza + ", Detalle: " + p.personalizadaCompleto.detalle;
-        pedido.append(item);
-    }
+    // bucle for para guardar el body de la tabla de cada item
+    carritoGuardado.forEach((pedido) => {
+        htmlTable += `<tr>
+        <td>${pedido.id}</td>
+        <td>${pedido.tipoPizza}</td>
+        <td>${pedido.cantidad}</td>
+        <td>${pedido.detalle}</td>
+        </tr>`;
+    });
+
+    htmlTable += "</table>";
+
+    // Display the table using SweetAlert
+    Swal.fire({
+        title: "Carrito de Compras",
+        html: htmlTable,
+        icon: "info",
+        confirmButtonText: "Cerrar"
+    });
+
+
 
 }

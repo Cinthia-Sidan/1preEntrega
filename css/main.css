@@ -74,6 +74,27 @@
   text-decoration: none;
   font-family: 'Poppins'; }
 
+
+.carrito {
+  width: 100%;
+}
+
+.carritoId{
+  width: 10%;
+}
+
+.carritoTipo{
+  width: 25%;
+}
+
+.carritoCantidad{
+  width: 20%;
+}
+
+.carritoDetalle{
+  width: 50%;
+}
+
 @media (max-width: 768px) {
   .header {
     background-color: #000000; }
